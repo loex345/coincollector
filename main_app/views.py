@@ -22,3 +22,6 @@ def about(request):
 
 def home(request):
   return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+
+def coins_index(request):
+   return render(request, 'coin/index.html',{'coins': coins})
