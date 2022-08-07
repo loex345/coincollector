@@ -10,7 +10,7 @@ class Coin:  # Note that parens are optional if not inheriting from another clas
     self.description = description
     self.value = value
 
-cats = [
+coins = [
   Coin('Peace Dollar', 'silver', 'peace dollar', 1),
   Coin('Lincoln Cent', 'bronze', 'Lincoln coin', .01),
 ]
@@ -21,7 +21,7 @@ def about(request):
     return render(request, 'about.html')
 
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+  return render(request,'home.html')
 
 def coins_index(request):
-   return render(request, 'coin/index.html',{'coins': coins})
+   return render(request, 'coins/index.html',{'coins': coins})
