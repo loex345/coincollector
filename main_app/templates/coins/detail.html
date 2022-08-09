@@ -14,6 +14,14 @@
       <p>Age: null</p>
     {% endif %}
   </div>
+<!-- Add the following markup -->
+<div class="card-action">
+  <a href="{% url 'coins_update' coin.id %}">Edit</a>
+  <a href="{% url 'coins_delete' coin.id %}">Delete</a>
+</div>
+<!-- New markup above -->
+</div>
+
 </div>
 
 {% endblock %}
