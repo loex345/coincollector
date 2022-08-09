@@ -4,6 +4,7 @@ from django.db import models
 
 class Coin(models.Model):
     name = models.CharField(max_length=100)
-    breed = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
-    age = models.IntegerField()
+    value = models.IntegerField()
+#todo run migrations from

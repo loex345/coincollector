@@ -1,6 +1,6 @@
 from multiprocessing import Value
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Coin
 
 # Add the Cat class & list and view function below the imports
 
@@ -13,4 +13,9 @@ def home(request):
   return render(request,'home.html')
 
 def coins_index(request):
+   coins = Coin.objects.all()
    return render(request, 'coins/index.html',{'coins': coins})
+
+def coins_detail(request, coin_id):
+   coin = Coin.objects.get(id=coin_id)
+   return render(request, 'coins/detail.html', {'coin':coin})
