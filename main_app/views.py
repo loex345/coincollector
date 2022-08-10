@@ -2,6 +2,7 @@ from multiprocessing import Value
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Coin
+from .forms import CollectingForm
 
 # Add the Cat class & list and view function below the imports
 
@@ -19,7 +20,8 @@ def coins_index(request):
 
 def coins_detail(request, coin_id):
    coin = Coin.objects.get(id=coin_id)
-   return render(request, 'coins/detail.html', {'coin':coin})
+   collecting_form = CollectingForm()
+   return render(request, 'coins/detail.html', {'coin':coin, 'collecting_form':collecting_form})
 
 class CoinCreate(CreateView):
       model= Coin
