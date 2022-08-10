@@ -1,5 +1,5 @@
 from multiprocessing import Value
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Coin
 from .forms import CollectingForm
@@ -36,4 +36,11 @@ class CoinDelete(DeleteView):
       model = Coin
       success_url = '/coins/'
       
+def add_collecting(request, coin_id):
+      form = CollectingForm(request.POST)
+      if form.is_valid():
+          new_collecting = form.save(commit=False)
+          new_collecting.coin_id = coin_id
+          new_collecting.save()
+      return redirect('detail', coin_id=coin_id)    
 

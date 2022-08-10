@@ -26,5 +26,8 @@ class Collecting(models.Model):
      duration = models.IntegerField()
      prospecting = models.CharField(max_length=1, choices=PROSPECTING_TIMES, default=PROSPECTING_TIMES[0][0])
      coin = models.ForeignKey(Coin, on_delete=models.CASCADE, default=0)
+     
      def __str__(self):
-        return f"{self.get_prospecting_display()} on {self.date}"
+        return f'{self.get_prospecting_display()} on {self.date}'
+     class Meta:
+        ordering =['-date'] 
