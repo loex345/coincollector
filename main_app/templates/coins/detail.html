@@ -26,8 +26,14 @@
     <form action="{% url 'add_collecting' coin.id %}" method="POST">
       {% csrf_token %}
       {{ collecting_form.as_p }}
-      <input type="submit" class="btn" value="Add Feeding">
+      <input type="submit" class="btn" value="Add Collection Time">
     </form>
+    <br>
+    {% if coin.prospect_for_today %}
+      <div class="card-panel teal-text center-align">Sufficent time has been used to search for {{coin.name}} </div>
+    {% else %}
+      <div class="card-panel red-text center-align">Please spend more time searching for {{coin.name}}</div>
+    {% endif %}
     <table class="striped">
       <thead>
         <tr><th>Date</th><th>Prospecting Time</th></tr>

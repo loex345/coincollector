@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 PROSPECTING_TIMES =(
     ('M', 'Morning'),
@@ -15,11 +16,14 @@ class Coin(models.Model):
     value = models.IntegerField()
 #todo run migrations from
 
-def __str__(self):
-    return self.name
+    def __str__(self):
+       return self.name
 
-def get_absolute_url(self):
-    return reverse('detail', kwargs={'coin_id': self.id})
+    def get_absolute_url(self):
+       return reverse('detail', kwargs={'coin_id': self.id})
+
+    def prospect_for_today(self):
+      return self.collecting_set.filter(date=date.today()).count() >=len(PROSPECTING_TIMES) 
 
 class Collecting(models.Model):
      date = models.DateField('Collection date')
@@ -31,3 +35,4 @@ class Collecting(models.Model):
         return f'{self.get_prospecting_display()} on {self.date}'
      class Meta:
         ordering =['-date'] 
+    
