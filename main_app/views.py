@@ -1,7 +1,9 @@
+from ast import Del
 from multiprocessing import Value
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Coin
+from django.views.generic import ListView, DetailView
+from .models import Coin, Tool
 from .forms import CollectingForm
 
 # Add the Cat class & list and view function below the imports
@@ -20,12 +22,14 @@ def coins_index(request):
 
 def coins_detail(request, coin_id):
    coin = Coin.objects.get(id=coin_id)
+   id_list = coin.tools.all().values_list('id')
+   tools_coin_doesnt_have = Tool.objects.exclude(id__in=id_list)
    collecting_form = CollectingForm()
-   return render(request, 'coins/detail.html', {'coin':coin, 'collecting_form':collecting_form})
+   return render(request, 'coins/detail.html', {'coin':coin, 'collecting_form':collecting_form, 'tools': tools_coin_doesnt_have})
 
 class CoinCreate(CreateView):
       model= Coin
-      fields ='__all__'
+      fields =['name','type','description','value',]
       success_url = '/coins/'
 
 class CoinUpdate(UpdateView):
@@ -44,3 +48,20 @@ def add_collecting(request, coin_id):
           new_collecting.save()
       return redirect('detail', coin_id=coin_id)    
 
+class ToolList(ListView):
+      model = Tool
+
+class ToolDetail(DetailView):
+      model = Tool
+
+class ToolCreate(CreateView):
+      model = Tool
+      fields ='__all__'
+
+class ToolUpdate(UpdateView):
+      model = Tool
+      fields ='__all__'
+
+class ToolDelete(DeleteView):
+      model = Tool
+      success_url ='/tools/'

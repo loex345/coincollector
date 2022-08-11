@@ -9,11 +9,23 @@ PROSPECTING_TIMES =(
 )
 # Create your models here.
 
+class Tool(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.TextField(max_length=150)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('tools_detail', kwargs={'pk': self.id})
+
 class Coin(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     value = models.IntegerField()
+    tools = models.ManyToManyField(Tool)
+#Tools
 #todo run migrations from
 
     def __str__(self):
