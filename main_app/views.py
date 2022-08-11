@@ -65,3 +65,11 @@ class ToolUpdate(UpdateView):
 class ToolDelete(DeleteView):
       model = Tool
       success_url ='/tools/'
+
+def assoc_tool(request, coin_id, tool_id):
+   Coin.objects.get(id=coin_id).tools.add(tool_id)
+   return redirect('detail', coin_id=coin_id)
+
+def unassoc_tool(request, coin_id, tool_id):
+   Coin.objects.get(id=coin_id).tools.remove(tool_id)
+   return redirect('detail', coin_id=coin_id)
