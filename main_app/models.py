@@ -39,7 +39,7 @@ class Coin(models.Model):
 
 class Collecting(models.Model):
      date = models.DateField('Collection date')
-     duration = models.IntegerField()
+     duration = models.IntegerField('Duration in Hrs')
      prospecting = models.CharField(max_length=1, choices=PROSPECTING_TIMES, default=PROSPECTING_TIMES[0][0])
      coin = models.ForeignKey(Coin, on_delete=models.CASCADE, default=0)
      
